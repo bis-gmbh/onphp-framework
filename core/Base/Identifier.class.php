@@ -40,7 +40,13 @@
 		
 		public function getId()
 		{
-			return $this->id;
+			if (
+				$this->id instanceof Identifier
+				&& $this->id->isFinalized()
+			)
+				return $this->id->getId();
+			else
+				return $this->id;
 		}
 		
 		/**

@@ -355,13 +355,7 @@
 
 		public function dropObjectIdentityMapById($id)
 		{
-			if ($id instanceof Identifiable) {
-				$id = $id->getId();
-			}
-
-			if (isset($this->identityMap[$id])) {
-				unset($this->identityMap[$id]);
-			}
+			unset($this->identityMap[$id]);
 
 			return $this;
 		}
@@ -440,26 +434,13 @@
 		
 		private function addObjectToMap(Identifiable $object)
 		{
-			$id = $object->getId();
-
-			if ($id instanceof Identifier) {
-				$id = $id->getId();
-			}
-
-			return $this->identityMap[$id] = $object;
+			return $this->identityMap[$object->getId()] = $object;
 		}
 
 		private function addObjectListToMap($list)
 		{
-			foreach ($list as $object) {
-				$id = $object->getId();
-
-				if ($id instanceof Identifier) {
-					$id = $id->getId();
-				}
-
-				$this->identityMap[$id] = $object;
-			}
+			foreach ($list as $object)
+				$this->identityMap[$object->getId()] = $object;
 			
 			return $list;
 		}
