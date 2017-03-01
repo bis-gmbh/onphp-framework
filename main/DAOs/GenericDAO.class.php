@@ -436,7 +436,7 @@
 		{
 			return $this->identityMap[$object->getId()] = $object;
 		}
-		
+
 		private function addObjectListToMap($list)
 		{
 			foreach ($list as $object)
