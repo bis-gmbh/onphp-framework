@@ -23,12 +23,12 @@
 			if (Assert::checkInteger($value))
 				return $value;
 
-			return "'" . $this->getLink()->quote($value) . "'";
+			return $this->getLink()->quote($value);
 		}
 
 		public function quoteBinary($data)
 		{
-			return "'" . $this->getLink()->quote($data) . "'";
+			return $this->getLink()->quote($data);
 		}
 
 		/**
