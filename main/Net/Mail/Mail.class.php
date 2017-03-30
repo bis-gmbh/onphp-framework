@@ -113,7 +113,7 @@
 					$this->contentType = 'text/plain';
 
 				$headers .=
-					"Content-type: ".$this->contentType
+					"Content-Type: ".$this->contentType
 					."; charset=".$encoding."\n";
 
 				$headers .= "Content-Transfer-Encoding: 8bit\n";
