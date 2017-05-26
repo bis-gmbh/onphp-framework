@@ -1,0 +1,15 @@
+<?php
+	$partViewer->view('parts/head');
+	
+	foreach ($messages as $message) {
+?>
+		<b><?=$message->getName()?></b></br>
+		<?=$message->getText()?></br>
+<?php
+	}
+?>
+<a href="<?=$baseUrl?>?area=editMessage&amp;action=add">Добавить</a>
+
+<?php
+	$partViewer->view('parts/foot');
+?>

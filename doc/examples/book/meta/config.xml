@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE metaconfiguration SYSTEM "meta.dtd">
+
+<!-- $Id$ -->
+
+<metaconfiguration>
+	<classes>
+		
+		<class name="Message" type="final">
+			<properties>
+				<identifier type="Integer" />
+				<property name="name" type="String" size="255" required="true" />
+				<property name="text" type="String" size="2048" required="true" />
+				<property name="category" type="Category" relation="OneToOne" required="true" />
+				<property name="author" type="String" size="20" required="false" />
+				
+				<property name="created" type="Timestamp" required="true" />
+			</properties>
+			<pattern name="DictionaryClass" />
+		</class>
+		
+		<class name="Category" type="final">
+			<properties>
+				<identifier type="SmallInteger" />
+				<property name="name" type="String" size="255" required="true" />
+				
+				<property name="messages" relation="OneToMany" type="Message" required="false" />
+			</properties>
+			<pattern name="DictionaryClass" />
+		</class>
+	
+	</classes>
+</metaconfiguration>

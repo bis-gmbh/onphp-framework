@@ -1,0 +1,91 @@
+<?php
+	$partViewer->view('parts/head');
+?>
+<a href="<?=$baseUrl?>?area=main">К списку</a>
+	<h1>
+<?php
+	if ($form->getValue('id')) {
+?>
+		Редактирование
+<?php
+	} else {
+?>
+		Добавление
+<?php	
+	}
+?>
+		сообщения
+	</h1>
+<form 
+	action="<?=$selfUrl?>&amp;<?=
+		$form->getValue('id') 
+			? 'action=save&amp;id='.$form->getValue('id')->getId()
+			: 'action=add'
+	?>" 
+	method="POST"
+>
+<table>
+	<tr>
+		<td><b>Заголовок *</b></td>
+		<td>
+<input
+	type="text" 
+	name="name"
+	value="<?=htmlspecialchars($form->getValue('name'))?>"
+/>
+<?php
+	if ($error = $form->getTextualErrorFor('name')) {
+?>
+	<span style="color: #f00"><?=$error?></span>
+<?php
+	}
+?>
+		</td>
+	</tr>
+	<tr>
+		<td><b>Автор *</b></td>
+		<td>
+<input 
+	type="text" 
+	name="author"
+	value="<?=htmlspecialchars($form->getValue('author'))?>"
+/>
+<?php
+	if ($error = $form->getTextualErrorFor('author')) {
+?>
+	<span style="color: #f00"><?=$error?></span>
+<?php
+	}
+?>
+		</td>
+	</tr>
+	<tr>
+		<td><b>Сообщение</b></td>
+		<td>
+			<textarea style="width:300;" name="text"><?=htmlspecialchars($form->getValue('text'))?></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td><b>Категория</b></td>
+		<td>
+<?php
+	$partViewer->view('parts/categoryList');
+?>
+		</td>
+	</tr>
+</table>
+<?php 
+	if ($form->getValue('id')) {
+?>
+	<input type="submit" name="save" value="Сохранить" />
+<?php
+	} else {
+?>
+	<input type="submit" name="add" value="Добавить"/>
+<?php	
+	}
+?>
+</form>
+<?php
+	$partViewer->view('parts/foot');
+?>
