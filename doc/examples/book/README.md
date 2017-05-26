@@ -63,23 +63,23 @@ b. Просматривать сообщения.
 
 ```
 /book
-     /db/
-     /meta
-     /misc
-     /src
-         /classes
-         /controllers
-         /htdocs
-         /templates
+	 /db/
+	 /meta
+	 /misc
+	 /src
+		 /classes
+		 /controllers
+		 /htdocs
+		 /templates
 ```
 
-`book` - корневая директория проекта.
-`book/db` - схема данных на языке sql (мы стараемся использовать только ANSISQL).
-`book/misc` - разное, то, что не вошло никуда.
-`book/meta` - конфигурационный файл для генератора кода (meta).
-`book/src` - исходный код проекта.
-`book/src/htdocs` - аналог frontcontroller в нотации mvc (скоро будет заменен пакетом Application).
-`book/src/templates` - шаблоны.
+- `book` - корневая директория проекта.
+- `book/db` - схема данных на языке sql (мы стараемся использовать только ANSISQL).
+- `book/misc` - разное, то, что не вошло никуда.
+- `book/meta` - конфигурационный файл для генератора кода (meta).
+- `book/src` - исходный код проекта.
+- `book/src/htdocs` - аналог frontcontroller в нотации mvc (скоро будет заменен пакетом Application).
+- `book/src/templates` - шаблоны.
 
 ### 2. Метаконфигурация и основные классы.
 
@@ -96,41 +96,41 @@ b. Просматривать сообщения.
 <!DOCTYPE metaconfiguration SYSTEM "meta.dtd">
 
 <metaconfiguration>
-    <classes>
+	<classes>
 
-    <!-- Основное описание классов, которые должны быть сгенерированы, находится здесь.-->
+	<!-- Основное описание классов, которые должны быть сгенерированы, находится здесь.-->
 
-    <class name="Message" type="final">
+	<class name="Message" type="final">
 	<properties>
-	    <identifier type="Integer" />
-	    <property name="name" type="String" size="255" required="true" />
-	    <property name="text" type="String" size="2048" required="true" />
-	    <property name="category" type="Category" relation="OneToOne" required="true" />
-	    <property name="author" type="String" size="20" required="false" />
+		<identifier type="Integer" />
+		<property name="name" type="String" size="255" required="true" />
+		<property name="text" type="String" size="2048" required="true" />
+		<property name="category" type="Category" relation="OneToOne" required="true" />
+		<property name="author" type="String" size="20" required="false" />
 
-	    <property name="created" type="Timestamp" required="true" />
+		<property name="created" type="Timestamp" required="true" />
 	</properties>
 	<pattern name="DictionaryClass" />
-    </class>
+	</class>
 
-    <class name="Category" type="final">
+	<class name="Category" type="final">
 	<properties>
-	    <identifier type="SmallInteger" />
-	    <property name="name" type="String" size="255" required="true" />
+		<identifier type="SmallInteger" />
+		<property name="name" type="String" size="255" required="true" />
 
-	    <!-- Коллекция сообщений для категории -->
-	    <property name="messages" relation="OneToMany" type="Message" required="false" />
+		<!-- Коллекция сообщений для категории -->
+		<property name="messages" relation="OneToMany" type="Message" required="false" />
 	</properties>
 	<pattern name="DictionaryClass" />
-    </class>
+	</class>
 
-    </classes>
+	</classes>
 </metaconfiguration>
 ```
 
 Чтобы сгенерировать классы воспользуемся metabuilder:
 
-```bash
+```
 sherman@black-mamba /var/www/book.oem.boo/book $ php ~/work/php/onphp/branches/0.10/meta/bin/build.php
 
 Trying to guess path to project's configuration file: src/config.inc.php.
@@ -146,8 +146,6 @@ onPHP-0.10.4.99: MetaConfiguration builder.
 meta перестраивает их самостоятельно. Для расширения используйте наследников auto-классов.
 
 После успешного окончания процесса генерации у вас появятся следующие файлы:
-
-`classes/`
 
 DAO классы. Классы доступа к данных.
 Все что относится к данным, в том числе OSQL-запросы, транзакции, названия таблиц, атрибутов и т.д. все здесь.
@@ -182,8 +180,9 @@ classes/Business/Category.class.php
 
 Физическая схема данных на языке OSQL.
 
-`classes/Auto/schema.php`
-
+```
+classes/Auto/schema.php
+```
 
 ### 3. Физическая схема данных.
 
@@ -196,8 +195,8 @@ classes/Business/Category.class.php
 ```sql
 create sequence category_id;
 create table category(
-    id 		smallint not null default nextval('category_id') primary key,
-    name	varchar(255) not null
+	id 		smallint not null default nextval('category_id') primary key,
+	name	varchar(255) not null
 );
 ```
 
@@ -206,12 +205,12 @@ create table category(
 ```sql
 create sequence message_id;
 create table message(
-    id 			integer not null default nextval('message_id') primary key,
-    name		varchar(255) not null, -- aka title
-    text		varchar(2048) not null,
-    category_id	smallint not null references category(id) on delete cascade on update cascade,
-    author		varchar(20) null,
-    created		timestamp not null
+	id 			integer not null default nextval('message_id') primary key,
+	name		varchar(255) not null, -- aka title
+	text		varchar(2048) not null,
+	category_id	smallint not null references category(id) on delete cascade on update cascade,
+	author		varchar(20) null,
+	created		timestamp not null
 );
 
 create index message_category_idx on message(category_id);
@@ -248,24 +247,24 @@ abstract class baseEditMessage extends EditorController
 {
 	public function __construct()
 	{
-	    parent::__construct(Message::create());
+		parent::__construct(Message::create());
 
-	    $this->commandMap['add'] 	= new MessageAddCommand();
-	    $this->commandMap['save'] 	= new MessageSaveCommand();
+		$this->commandMap['add'] 	= new MessageAddCommand();
+		$this->commandMap['save'] 	= new MessageSaveCommand();
 	}
 
 	public function handleRequest(HttpRequest $request)
 	{
-	    $mav = parent::handleRequest($request);
+		$mav = parent::handleRequest($request);
 
-	    // get available category list
-	    $mav->getModel()->set(
+		// get available category list
+		$mav->getModel()->set(
 		'categories',
 		Criteria::create(Category::dao())->
 		getList()
-	    );
+		);
 
-	    return $mav;
+		return $mav;
 	}
 }
 ```
@@ -276,16 +275,16 @@ abstract class baseEditMessage extends EditorController
 final class MessageAddCommand extends AddCommand
 {
 	public function run(
-	    Prototyped $subject, Form $form, HttpRequest $request
+		Prototyped $subject, Form $form, HttpRequest $request
 	)
 	{
-	    $form->
+		$form->
 		importValue(
-		    'created',
-		    Timestamp::makeNow()
+			'created',
+			Timestamp::makeNow()
 		);
 
-	    return parent::run($subject, $form, $request);
+		return parent::run($subject, $form, $request);
 	}
 }
 ```
@@ -314,28 +313,28 @@ final class editMessage extends baseEditMessage
 {
 	public function	handleRequest(HttpRequest $request)
 	{
-	    // a bit of paranoia
-	    $form =
+		// a bit of paranoia
+		$form =
 		Form::create()->
 		add(
-		    Primitive::string('action')->
-		    required()
+			Primitive::string('action')->
+			required()
 		)->
 		importOne('action', $request->getGet());
 
-	    if ($form->getErrors())
+		if ($form->getErrors())
 		return
-		    ModelAndView::create()->
-		    setView(BaseEditor::COMMAND_FAILED);
+			ModelAndView::create()->
+			setView(BaseEditor::COMMAND_FAILED);
 
-	    if (
+		if (
 		$form->getValue('action') != 'add'
-	    )
+		)
 		return
-		    ModelAndView::create()->
-		    setView(BaseEditor::COMMAND_FAILED);
+			ModelAndView::create()->
+			setView(BaseEditor::COMMAND_FAILED);
 
-	    return parent::handleRequest($request);
+		return parent::handleRequest($request);
 	}
 }
 ```
@@ -349,70 +348,71 @@ Html-форма для пользователя и админа будет оп�
 Фрагмент:
 
 ```php
-<form 
-    action="<?=$selfUrl?>&<?=
-	$form->getValue('id') 
-	    ? 'action=save&id='.$form->getValue('id')->getId()
-	    : 'action=add'
-    ?>" 
-    method="POST"
+<form
+	action="<?=$selfUrl?>&<?=
+	$form->getValue('id')
+		? 'action=save&id='.$form->getValue('id')->getId()
+		: 'action=add'
+	?>"
+	method="POST"
 >
 <table>
-    <tr>
+	<tr>
 	<td><b>Заголовок *</b></td>
 	<td>
 <input
-    type="text" 
-    name="name"
-    value="<?=htmlspecialchars($form->getValue('name'))?>"
+	type="text"
+	name="name"
+	value="<?=htmlspecialchars($form->getValue('name'))?>"
 />
 <?php
-    if ($error = $form->getTextualErrorFor('name')) {
+	if ($error = $form->getTextualErrorFor('name')) {
 ?>
-    <span style="color: #f00"><?=$error?></span>
+	<span style="color: #f00"><?=$error?></span>
 <?php
-    }
+	}
 ?>
 	</td>
-    </tr>
-    <tr>
+	</tr>
+	<tr>
 	<td><b>Автор *</b></td>
 	<td>
-<input 
-    type="text" 
-    name="author"
-    value="<?=htmlspecialchars($form->getValue('author'))?>"
+<input
+	type="text"
+	name="author"
+	value="<?=htmlspecialchars($form->getValue('author'))?>"
 />
 <?php
-    if ($error = $form->getTextualErrorFor('author')) {
+	if ($error = $form->getTextualErrorFor('author')) {
 ?>
-    <span style="color: #f00"><?=$error?></span>
+	<span style="color: #f00"><?=$error?></span>
 <?php
-    }
+	}
 ?>
 ```
 
-4.1. Вывести список сообщений.
+### 4.2. Вывести список сообщений.
 
 А вывод сообщений ? Нет ничего проще:
 
-    final class messageList implements Controller
-    {
+```php
+final class messageList implements Controller
+{
 	public function handleRequest(HttpRequest $request)
 	{
-	    $criteria =
+		$criteria =
 		Criteria::create(Message::dao())->
 		addOrder(
-		    OrderBy::create('created')->
-		    desc()
+			OrderBy::create('created')->
+			desc()
 		)->
 		getList();
 
-	    return
+		return
 		ModelAndView::create()->
 		setModel(
-		    Model::create()->
-		    set('messages', $messages)
+			Model::create()->
+			set('messages', $messages)
 		);
 	}
 }
@@ -422,24 +422,24 @@ Html-форма для пользователя и админа будет оп�
 
 ```php
 <?php
-    $partViewer->view('parts/head');
+	$partViewer->view('parts/head');
 
-    foreach ($messages as $message) {
+	foreach ($messages as $message) {
 ?>
 	<b><?=$message->getName()?></b></br>
 	<?=$message->getText()?></br>
 <?php
-    }
+	}
 ?>
 
 <?php
-    $partViewer->view('parts/foot');
+	$partViewer->view('parts/foot');
 ?>
 ```
 
 Полную версию исходного кода можно найти [тут](http://web.archive.org/web/20120303153349/http://mobileon.ru/patches/book.src.tgz).
 
-### III. Подводя итоги.
+## III. Подводя итоги.
 
 К сожалению, за кадром остались очень многие интересные темы. Например, цепочки фильтров и их применение,
 механизм кэша и различные стратегии кэширования, OSQL и многое другое, без чего бы не получился этот framework.
