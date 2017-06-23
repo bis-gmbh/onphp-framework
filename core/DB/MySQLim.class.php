@@ -164,15 +164,19 @@
 				return null;
 		}
 		
-		public function queryRaw($queryString)
+		public function queryRaw($queryString, $query = null)
 		{
 			if (!$result = mysqli_query($this->link, $queryString)) {
 				
 				$code = mysqli_errno($this->link);
 				
-				if ($code == 1062)
+				if ($code == 1062) {
 					$e = '\Onphp\DuplicateObjectException';
-				else
+
+					if ($query instanceof InsertQuery) {
+						$this->removeSequence($query->getTable().'_id');
+					}
+				} else
 					$e = '\Onphp\DatabaseException';
 				
 				throw new $e(

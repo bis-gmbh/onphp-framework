@@ -320,7 +320,9 @@
 		//@{
 		public function query(Query $query)
 		{
-			return $this->queryRaw($query->toDialectString($this->getDialect()));
+			return $this->queryRaw(
+				$query->toDialectString($this->getDialect()), $query
+			);
 		}
 
 		public function queryNull(Query $query)
