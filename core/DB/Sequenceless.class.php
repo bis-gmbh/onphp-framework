@@ -63,21 +63,16 @@
 				
 				$id->setId($this->getInsertId())->finalize();
 				
-				$this->removeSequence($name);
+				unset(
+					$this->sequencePool[
+						$name
+					][
+						key($this->sequencePool[$name])
+					]
+				);
 			}
 			
 			return $result;
-		}
-
-		final public function removeSequence($name)
-		{
-			unset(
-				$this->sequencePool[
-					$name
-				][
-					key($this->sequencePool[$name])
-				]
-			);
 		}
 	}
 ?>
