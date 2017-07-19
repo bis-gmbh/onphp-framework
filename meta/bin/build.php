@@ -45,16 +45,24 @@ Possible options:
 	
 	function init()
 	{
+		if (!defined('ONPHP_META_PATH')) {
+			define('ONPHP_META_PATH', dirname(__DIR__).DIRECTORY_SEPARATOR);
+		}
+
 		define('ONPHP_META_BUILDERS', ONPHP_META_PATH.'builders'.DIRECTORY_SEPARATOR);
 		define('ONPHP_META_PATTERNS', ONPHP_META_PATH.'patterns'.DIRECTORY_SEPARATOR);
 		define('ONPHP_META_TYPES', ONPHP_META_PATH.'types'.DIRECTORY_SEPARATOR);
-		
-		AutoloaderPool::get('onPHP')->
-			addPaths(array(
-				ONPHP_META_BUILDERS,
-				ONPHP_META_PATTERNS,
-				ONPHP_META_TYPES,
-			), 'Onphp');
+
+		$autoLoader = AutoloaderPool::get('onPHP');
+
+		if ($autoLoader !== null) {
+			$autoLoader->
+				addPaths(array(
+					ONPHP_META_BUILDERS,
+					ONPHP_META_PATTERNS,
+					ONPHP_META_TYPES,
+				), 'Onphp');
+		}
 
 		Assert::isTrue(defined('PATH_CLASSES'), 'constant PATH_CLASSES must be defined');
 		
