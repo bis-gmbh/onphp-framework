@@ -46,10 +46,22 @@
 		
 		final public function query(Query $query)
 		{
-			$result = $this->queryRaw(
-				$query->toDialectString($this->getDialect())
-			);
+			try {
+				$result = $this->queryRaw(
+					$query->toDialectString($this->getDialect())
+				);
+			} catch (BaseException $e) {
+				$this->updateIdAfterInsert($query);
+				throw $e;
+			}
 			
+			$this->updateIdAfterInsert($query);
+
+			return $result;
+		}
+
+		private function updateIdAfterInsert(Query $query)
+		{
 			if (
 				($query instanceof InsertQuery)
 				&& !empty($this->sequencePool[$name = $query->getTable().'_id'])
@@ -71,8 +83,6 @@
 					]
 				);
 			}
-			
-			return $result;
 		}
 	}
 ?>
