@@ -27,7 +27,7 @@
 		/**
 		 * @return \Onphp\OneToManyLinkedFull
 		**/
-		public function sync($insert, $update = array(), $delete)
+		public function sync($insert = array(), $update = array(), $delete = array())
 		{
 			$uc = $this->container;
 			$dao = $uc->getDao();

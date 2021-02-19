@@ -22,7 +22,7 @@
 		protected $container	= null;
 		
 		abstract public function makeFetchQuery();
-		abstract public function sync($insert, $update = array(), $delete);
+		abstract public function sync($insert = array(), $update = array(), $delete = array());
 		
 		public function __construct(UnifiedContainer $uc)
 		{

@@ -19,7 +19,7 @@
 		/**
 		 * @return \Onphp\ManyToManyLinkedFull
 		**/
-		public function sync($insert, $update = array(), $delete)
+		public function sync($insert = array(), $update = array(), $delete = array())
 		{
 			$dao = $this->container->getDao();
 			

@@ -33,7 +33,7 @@
 		 * @throws \Onphp\WrongArgumentException
 		 * @return \Onphp\OneToManyLinkedLazy
 		**/
-		public function sync($insert, $update = array(), $delete)
+		public function sync($insert = array(), $update = array(), $delete = array())
 		{
 			Assert::isTrue($update === array());
 			
