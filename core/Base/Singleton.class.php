@@ -78,8 +78,5 @@
 			
 			unset(self::$instances[$class]);
 		}
-		
-		final private function __clone() {/* do not clone me */}
-		final private function __sleep() {/* restless class */}
 	}
 ?>
