@@ -37,6 +37,7 @@
 		const WBMP		= IMAGETYPE_WBMP;
 		const JPEG2000	= IMAGETYPE_JPEG2000;
 		const XBM		= IMAGETYPE_XBM;
+        const WEBP		= IMAGETYPE_WEBP;
 		const PJPEG		= self::IMAGETYPE_PJPEG;
 		
 		protected $names = array(
@@ -57,6 +58,7 @@
 			IMAGETYPE_WBMP			=> 'bmp',
 			IMAGETYPE_JPEG2000		=> 'jpc',
 			IMAGETYPE_XBM			=> 'xbm',
+            IMAGETYPE_WEBP			=> 'webp',
 			self::IMAGETYPE_PJPEG	=> 'jpeg'
 		);
 		
@@ -79,7 +81,8 @@
 			'iff'	=> IMAGETYPE_IFF,
 			'wbmp'	=> IMAGETYPE_WBMP,
 			'jpc'	=> IMAGETYPE_JPEG2000,
-			'xbm'	=> IMAGETYPE_XBM
+			'xbm'	=> IMAGETYPE_XBM,
+            'webp'	=> IMAGETYPE_WEBP
 		);
 		
 		protected $mimeTypes = array(
@@ -100,6 +103,7 @@
 			IMAGETYPE_WBMP			=> 'image/vnd.wap.wbmp',
 			IMAGETYPE_JPEG2000		=> 'image/jpeg',
 			IMAGETYPE_XBM			=> 'image/xbm',
+            IMAGETYPE_WEBP	        => 'image/webp',
 			self::IMAGETYPE_PJPEG	=> 'image/pjpeg'
 		);
 		
