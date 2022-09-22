@@ -93,7 +93,7 @@
 				);
 		}
 
-		public function getIterator()
+		public function getIterator(): \Traversable
 		{
 			$headerList = array();
 

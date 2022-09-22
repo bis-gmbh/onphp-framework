@@ -30,14 +30,14 @@
 		
 		/// prevent's serialization of names' array
 		//@{
-		public function serialize()
+		public function __serialize()
 		{
-			return (string) $this->id;
+			return [(string) $this->id];
 		}
 		
-		public function unserialize($serialized)
+		public function __unserialize($serialized)
 		{
-			$this->setId($serialized);
+			$this->setId($serialized[0]);
 		}
 		//@}
 		
@@ -99,5 +99,15 @@
 			
 			return $this;
 		}
+
+
+        public function serialize() {
+            return serialize($this->__serialize());
+        }
+
+        public function unserialize($data) {
+            $this->__unserialize(unserialize($data));
+            return $this;
+        }
 	}
 ?>
