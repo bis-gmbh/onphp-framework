@@ -58,7 +58,7 @@
 				// stfu
 			}
 			
-			setcookie(session_name(), null, 0, '/');
+			setcookie(session_name(), "", time()-3600, '/');
 		}
 		
 		public static function flush()

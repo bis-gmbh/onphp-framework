@@ -37,7 +37,12 @@
 		
 		public function __unserialize($serialized)
 		{
-			$this->setId($serialized[0]);
+            if (is_array($serialized)) {
+                $this->setId($serialized[0]);
+                return;
+            }
+
+			$this->setId($serialized);
 		}
 		//@}
 		
