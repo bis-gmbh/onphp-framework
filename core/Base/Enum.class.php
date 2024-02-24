@@ -57,21 +57,29 @@
 			return $this;
 		}
 
-		/**
-		 * @return string
-		 */
-		public function serialize()
-		{
-			return (string) $this->id;
-		}
+        public function serialize() {
+            return serialize($this->__serialize());
+        }
 
-		/**
-		 * @param $serialized
-		 */
-		public function unserialize($serialized)
-		{
-			$this->setInternalId($serialized);
-		}
+        public function unserialize($data) {
+            $this->__unserialize(unserialize($data));
+            return $this;
+        }
+
+        public function __serialize()
+        {
+            return [(string) $this->id];
+        }
+
+        public function __unserialize($serialized)
+        {
+            if (is_array($serialized)) {
+                $this->setInternalId($serialized[0]);
+                return;
+            }
+
+            $this->setInternalId($serialized);
+        }
 
 		/**
 		 * Array of object
