@@ -101,12 +101,12 @@
 					: $from;
 			
 			if ($from != null) {
-				$headers .= "From: ".$from."\n";
-				$headers .= "Return-Path: ".$returnPathAtom."\n";
+				$headers .= "From: ".$from."\r\n";
+				$headers .= "Return-Path: ".$returnPathAtom."\r\n";
 			}
 			
 			if ($this->cc != null)
-				$headers .= "Cc: ".$this->cc."\n";
+				$headers .= "Cc: ".$this->cc."\r\n";
 
 			if (is_array($this->headers)) {
 				$headers = $this->headers;
@@ -125,10 +125,10 @@
 
 				$headers .=
 					"Content-Type: ".$this->contentType
-					."; charset=".$encoding."\n";
+					."; charset=".$encoding."\r\n";
 
-				$headers .= "Content-Transfer-Encoding: 8bit\n";
-				$headers .= "Date: ".date('r')."\n";
+				$headers .= "Content-Transfer-Encoding: 8bit\r\n";
+				$headers .= "Date: ".date('r')."\r\n";
 			} else {
 				$headers .= $this->getHeaders();
 			}
