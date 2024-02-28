@@ -108,7 +108,18 @@
 			if ($this->cc != null)
 				$headers .= "Cc: ".$this->cc."\n";
 
-			if (!$this->getHeaders()) {
+			if (is_array($this->headers)) {
+				$headers = $this->headers;
+
+				if ($this->cc != null) {
+					$headers["Cc"] = $this->cc;
+				}
+
+				if ($from != null) {
+					$headers["From"] = $from;
+					$headers["Return-Path"] = $returnPathAtom;
+				}
+			} else if (!$this->getHeaders()) {
 				if ($this->contentType === null)
 					$this->contentType = 'text/plain';
 
