@@ -64,12 +64,15 @@
 		public function connect()
 		{
 			$this->link = mysqli_init();
+			$socket = $hostname = $port = null;
 
-			$hostname =
-				$this->checkPersistent()
-					? 'p:'.$this->hostname
-					: $this->hostname;
-			
+			if (strpos($this->hostname, 'unixsock://') === 0) {
+				$socket = str_replace('unixsock://', '', $this->hostname);
+			} else {
+				$hostname = $this->checkPersistent() ? 'p:'.$this->hostname : $this->hostname;
+				$port = $this->port;
+			}
+
 			try {
 				mysqli_real_connect(
 					$this->link,
@@ -77,8 +80,8 @@
 					$this->username,
 					$this->password,
 					$this->basename,
-					$this->port,
-					null,
+					$port,
+					$socket,
 					MYSQLI_CLIENT_FOUND_ROWS
 				);
 			} catch (BaseException $e) {
