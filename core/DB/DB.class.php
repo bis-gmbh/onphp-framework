@@ -394,8 +394,11 @@
 		public function setHostname($host)
 		{
 			$port = null;
-			
-			if (strpos($host, ':') !== false)
+
+			if (
+				strpos($host, 'unixsock://') === false
+				&& strpos($host, ':') !== false
+			)
 				list($host, $port) = explode(':', $host, 2);
 			
 			$this->hostname = $host;
