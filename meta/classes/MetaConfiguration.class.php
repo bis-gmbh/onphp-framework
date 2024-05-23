@@ -750,7 +750,7 @@
 						"\t"
 						.str_replace(
 							getcwd().DIRECTORY_SEPARATOR,
-							null,
+							'',
 							$filename
 						)
 					);

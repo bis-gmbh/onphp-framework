@@ -43,7 +43,7 @@
 				return
 					Cache::me()->set(
 						$this->index,
-						str_replace('|'.$key, null, $data),
+						str_replace('|'.$key, '', $data),
 						Cache::EXPIRES_FOREVER
 					);
 			}

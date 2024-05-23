@@ -237,10 +237,10 @@
 			$outContent[1][0] = strtr($outContent[1][0], $symbols);
 			
 			$crcBefore = crc32(
-				preg_replace('/[\t\n\r\0 ]/', null, $this->getContent())
+				preg_replace('/[\t\n\r\0 ]/', '', $this->getContent())
 			);
 			$crcAfter = crc32(
-				preg_replace('/[\t\n\r\0 ]/', null, $outContent[1][0])
+				preg_replace('/[\t\n\r\0 ]/', '', $outContent[1][0])
 			);
 			
 			if ($crcBefore != $crcAfter) {
